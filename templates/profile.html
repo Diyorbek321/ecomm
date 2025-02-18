@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced User Profile</title>
+    {#    <link rel="stylesheet" href="styles.css">#}
+    <style>
+        /* Main Styles */
+        :root {
+            --primary-color: #2196f3;
+            --secondary-color: #1976d2;
+            --background-color: #f5f5f5;
+            --text-color: #333;
+            --border-color: #ddd;
+            --success-color: #4caf50;
+            --error-color: #f44336;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background-color: white;
+            padding: 20px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .profile-summary {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .profile-image {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .edit-profile-pic {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .nav-links li {
+            padding: 12px 15px;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links li:hover {
+            background-color: rgba(33, 150, 243, 0.1);
+        }
+
+        .nav-links li.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            background-color: white;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .btn-save {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-save:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Address Book Styles */
+        .addresses-container {
+            margin-top: 20px;
+        }
+
+        .address-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .address-card {
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        /* Order History Styles */
+        .order-card {
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        /* Wishlist Styles */
+        .wishlist-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .wishlist-item {
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .wishlist-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* Payment & Wallet Styles */
+        .wallet-summary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .wallet-balance {
+            text-align: center;
+        }
+
+        .balance-amount {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .btn-add-money {
+            background-color: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-add-money:hover {
+            background-color: #f0f0f0;
+        }
+
+        .payment-methods {
+            margin-bottom: 30px;
+        }
+
+        .saved-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card-item {
+            background: linear-gradient(45deg, #1a1a1a, #4a4a4a);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .card-number {
+            font-size: 18px;
+            letter-spacing: 2px;
+            margin: 20px 0;
+        }
+
+        .card-expiry {
+            font-size: 14px;
+        }
+
+        .card-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .btn-remove-card {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .btn-remove-card:hover {
+            opacity: 1;
+        }
+
+        .transaction-history {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .transaction-filters {
+            margin: 20px 0;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .transaction-details {
+            flex: 1;
+        }
+
+        .transaction-amount {
+            font-weight: bold;
+        }
+
+        .transaction-amount.credit {
+            color: var(--success-color);
+        }
+
+        .transaction-amount.debit {
+            color: var(--error-color);
+        }
+
+        .transaction-date {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Modal Styles for Add Card Form */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        /* Previous CSS remains the same, add these new styles */
+
+        /* Security Section Styles */
+        .security-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Password Strength Meter */
+        .password-strength {
+            margin: 15px 0;
+        }
+
+        .strength-meter {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 75%;
+            background: linear-gradient(90deg, var(--error-color) 0%, var(--success-color) 100%);
+            transition: width 0.3s ease;
+        }
+
+        .last-updated {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Two-Factor Authentication */
+        .two-factor-status {
+            margin: 15px 0;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-dot.enabled {
+            background-color: var(--success-color);
+        }
+
+        .status-dot.disabled {
+            background-color: var(--error-color);
+        }
+
+        /* Login History */
+        .login-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .login-info {
+            flex: 1;
+        }
+
+        .login-device {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .login-meta {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .login-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .login-status.success {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success-color);
+        }
+
+        .login-status.failed {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--error-color);
+        }
+
+        /* Connected Devices */
+        .device-card {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .device-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+            border-radius: 50%;
+        }
+
+        .device-info {
+            flex: 1;
+        }
+
+        .device-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .device-meta {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Notification Settings */
+        .notification-settings {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .notification-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .notification-text {
+            flex: 1;
+        }
+
+        .notification-text h4 {
+            margin: 0;
+            margin-bottom: 5px;
+        }
+
+        .notification-text p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="profile-summary">
+            <div class="profile-image">
+                <img src="placeholder-profile.jpg" alt="Profile Picture" id="profilePic">
+                <button class="edit-profile-pic">Edit</button>
+            </div>
+            <h2 id="userName">John Doe</h2>
+            <p id="userEmail">john.doe@example.com</p>
+        </div>
+        <ul class="nav-links">
+            <li class="active" data-section="basic-info">Basic Information</li>
+            <li data-section="address-book">Address Book</li>
+            <li data-section="order-history">Order History</li>
+            <li data-section="wishlist">Wishlist</li>
+            <li data-section="payment-wallet">Payments & Wallet</li>
+            <li data-section="security">Security</li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Basic Information Section -->
+        <section id="basic-info" class="content-section active">
+            <h2>Basic Information</h2>
+            <form id="basicInfoForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender">
+                        <option value="">Prefer not to say</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-save">Save Changes</button>
+            </form>
+        </section>
+
+        <!-- Address Book Section -->
+        <section id="address-book" class="content-section">
+            <h2>Address Book</h2>
+            <div class="addresses-container">
+                <button class="btn-add-address">Add New Address</button>
+                <div class="address-cards" id="addressList">
+                    <!-- Address cards will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Order History Section -->
+        <section id="order-history" class="content-section">
+            <h2>Order History</h2>
+            <div class="orders-container" id="orderList">
+                <!-- Order cards will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Wishlist Section -->
+        <!-- Payment & Wallet Section -->
+        <section id="payment-wallet" class="content-section">
+            <h2>Payments & Wallet</h2>
+
+            <!-- Wallet Balance -->
+            <div class="wallet-summary">
+                <div class="wallet-balance">
+                    <h3>Wallet Balance</h3>
+                    <div class="balance-amount">$<span id="walletBalance">250.00</span></div>
+                    <button class="btn-add-money">Add Money</button>
+                </div>
+            </div>
+
+            <!-- Saved Payment Methods -->
+            <div class="payment-methods">
+                <h3>Saved Payment Methods</h3>
+                <button class="btn-add-card">Add New Card</button>
+                <div class="saved-cards" id="savedCards">
+                    <!-- Cards will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Transaction History -->
+            <div class="transaction-history">
+                <h3>Recent Transactions</h3>
+                <div class="transaction-filters">
+                    <select id="transactionType">
+                        <option value="all">All Transactions</option>
+                        <option value="credit">Credits</option>
+                        <option value="debit">Debits</option>
+                    </select>
+                </div>
+                <div class="transactions-list" id="transactionsList">
+                    <!-- Transactions will be populated by JavaScript -->
+                </div>
+            </div>
+
+        </section>
+        <!-- Security Section -->
+        <section id="security" class="content-section">
+            <h2>Security Settings</h2>
+
+            <!-- Password Management -->
+            <div class="security-card">
+                <h3>Password Management</h3>
+                <div class="password-strength">
+                    <h4>Password Strength</h4>
+                    <div class="strength-meter">
+                        <div class="strength-bar" id="passwordStrength"></div>
+                    </div>
+                    <p class="last-updated">Last changed: <span id="passwordLastChanged">30 days ago</span></p>
+                </div>
+                <button class="btn-change-password">Change Password</button>
+            </div>
+
+            <!-- Two-Factor Authentication -->
+            <div class="security-card">
+                <h3>Two-Factor Authentication</h3>
+                <div class="two-factor-status">
+                    <div class="status-indicator">
+                        <span class="status-dot" id="tfaStatus"></span>
+                        <span class="status-text">2FA is <span id="tfaStatusText">disabled</span></span>
+                    </div>
+                    <p class="security-description">Add an extra layer of security to your account by enabling
+                        two-factor authentication.</p>
+                </div>
+                <button class="btn-toggle-2fa" id="toggle2FA">Enable 2FA</button>
+            </div>
+
+            <!-- Login History -->
+            <div class="security-card">
+                <h3>Login History</h3>
+                <div class="login-history" id="loginHistory">
+                    <!-- Login history entries will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Connected Devices -->
+            <div class="security-card">
+                <h3>Connected Devices</h3>
+                <div class="connected-devices" id="connectedDevices">
+                    <!-- Connected devices will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Security Notifications -->
+            <div class="security-card">
+                <h3>Security Notifications</h3>
+                <div class="notification-settings">
+                    <div class="notification-option">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="loginAlerts" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <div class="notification-text">
+                            <h4>Login Alerts</h4>
+                            <p>Get notified of new login attempts</p>
+                        </div>
+                    </div>
+                    <div class="notification-option">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="passwordAlerts" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <div class="notification-text">
+                            <h4>Password Change Alerts</h4>
+                            <p>Get notified when your password is changed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+<script>
+    // Navigation functionality
+    document.addEventListener('DOMContentLoaded', function () {
+        // Navigation handling
+        const navLinks = document.querySelectorAll('.nav-links li');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                // Remove active class from all links and sections
+                navLinks.forEach(l => l.classList.remove('active'));
+                contentSections.forEach(s => s.classList.remove('active'));
+
+                // Add active class to clicked link and corresponding section
+                this.classList.add('active');
+                const sectionId = this.dataset.section;
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+
+        // Basic Information Form handling
+        const basicInfoForm = document.getElementById('basicInfoForm');
+        basicInfoForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const userData = Object.fromEntries(formData.entries());
+            saveUserData(userData);
+        });
+
+        // Sample data handling functions
+        function saveUserData(data) {
+            // In a real application, this would be an API call
+            console.log('Saving user data:', data);
+            showNotification('Profile updated successfully!');
+        }
+
+        // Address Book functionality
+        const addressList = document.getElementById('addressList');
+        const btnAddAddress = document.querySelector('.btn-add-address');
+
+        btnAddAddress.addEventListener('click', function () {
+            showAddressForm();
+        });
+
+        function showAddressForm(addressData = null) {
+            // Create and show modal with address form
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+            <div class="modal-content">
+                <h3>${addressData ? 'Edit Address' : 'Add New Address'}</h3>
+                <form id="addressForm">
+                    <div class="form-group">
+                        <label for="addressName">Address Name</label>
+                        <input type="text" id="addressName" name="addressName"
+                            value="${addressData?.name || ''}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="streetAddress">Street Address</label>
+                        <input type="text" id="streetAddress" name="streetAddress"
+                            value="${addressData?.street || ''}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city"
+                            value="${addressData?.city || ''}" required>
+                    </div>
+                    <button type="submit" class="btn-save">Save Address</button>
+                </form>
+            </div>
+        `;
+            document.body.appendChild(modal);
+        }
+
+        // Order History functionality
+        function loadOrderHistory() {
+            // Sample order data - in real application, this would be fetched from an API
+            const orders = [
+                {
+                    orderId: "ORD123456",
+                    date: "2024-02-15",
+                    status: "Delivered",
+                    items: [
+                        {name: "Product 1", price: 29.99}
+                    ]
+                }
+            ];
+
+            const orderList = document.getElementById('orderList');
+            orderList.innerHTML = orders.map(order => `
+            <div class="order-card">
+                <h3>Order #${order.orderId}</h3>
+                <p>Date: ${order.date}</p>
+                <p>Status: ${order.status}</p>
+                <div class="order-items">
+                    ${order.items.map(item => `
+                        <div class="order-item">
+                            <span>${item.name}</span>
+                            <span>$${item.price}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('');
+        }
+
+        // Wishlist functionality
+        function loadWishlist() {
+            // Sample wishlist data - in real application, this would be fetched from an API
+            const wishlistItems = [
+                {
+                    id: 1,
+                    name: "Sample Product",
+                    price: 99.99,
+                    image: "placeholder.jpg"
+                }
+            ];
+
+            const wishlistContainer = document.getElementById('wishlistItems');
+            wishlistContainer.innerHTML = wishlistItems.map(item => `
+            <div class="wishlist-item">
+                <img src="${item.image}" alt="${item.name}">
+                <h3>${item.name}</h3>
+                <p>$${item.price}</p>
+                <button class="btn-remove-wishlist" data-id="${item.id}">Remove</button>
+            </div>
+        `).join('');
+        }
+
+        // Utility functions
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+
+        // Initial load
+        loadOrderHistory();
+        loadWishlist();
+    });
+
+</script>
+</body>
+</html>
