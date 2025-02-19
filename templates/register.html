@@ -54,7 +54,7 @@
         .image-side {
             flex: 1;
             background: linear-gradient(rgba(79, 70, 229, 0.9), rgba(129, 140, 248, 0.9)),
-                        url('/api/placeholder/600/800');
+            url('/api/placeholder/600/800');
             background-size: cover;
             background-position: center;
             padding: 3rem;
@@ -225,221 +225,243 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="forms-container">
-            <!-- Sign In Form -->
-            <form class="form sign-in-form" id="signInForm">
-                <h1 class="form-title">Welcome Back</h1>
+<div class="container">
+    <div class="forms-container">
+        <!-- Sign In Form -->
+        <form method="post" class="form sign-in-form" id="signInForm">
+            {% csrf_token %}
+            <h1 class="form-title">Welcome Back</h1>
 
-                <div class="input-group">
-                    <i class="fas fa-envelope"></i>
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <label>
                     <input type="email" placeholder="Email" required>
-                    <div class="error-message">Please enter a valid email address</div>
-                </div>
+                </label>
+                <div class="error-message">Please enter a valid email address</div>
+            </div>
 
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <label>
                     <input type="password" placeholder="Password" required>
-                    <div class="error-message">Password must be at least 6 characters</div>
-                </div>
+                </label>
+                <div class="error-message">Password must be at least 6 characters</div>
+            </div>
 
-                <div class="forgot-password">
-                    <a href="#">Forgot Password?</a>
-                </div>
+            <div class="forgot-password">
+                <a href="#">Forgot Password?</a>
+            </div>
 
-                <button type="submit" class="btn">Sign In</button>
+            <button type="submit" class="btn">Sign In</button>
 
-                <div class="social-login">
-                    <p>Or sign in with</p>
-                    <div class="social-icons">
-                        <div class="social-icon">
-                            <i class="fab fa-google"></i>
-                        </div>
-                        <div class="social-icon">
-                            <i class="fab fa-facebook-f"></i>
-                        </div>
-                        <div class="social-icon">
-                            <i class="fab fa-twitter"></i>
-                        </div>
+            <div class="social-login">
+                <p>Or sign in with</p>
+                <div class="social-icons">
+                    <div class="social-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="social-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="social-icon">
+                        <i class="fab fa-twitter"></i>
                     </div>
                 </div>
+            </div>
 
-                <div class="toggle-form">
-                    Don't have an account?<a href="#" id="showSignUp">Sign Up</a>
-                </div>
-            </form>
+            <div class="toggle-form">
+                Don't have an account?<a href="#" id="showSignUp">Sign Up</a>
+            </div>
+        </form>
 
-            <!-- Sign Up Form -->
-            <form class="form sign-up-form" id="signUpForm">
-                <h1 class="form-title">Create Account</h1>
+        <!-- Sign Up Form -->
+        <form method="post" class="form sign-up-form" id="signUpForm" action="{% url 'register' %}">
+            {% csrf_token %}
+            <h1 class="form-title">Create Account</h1>
 
-                <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Full Name" required>
-                    <div class="error-message">Please enter your full name</div>
-                </div>
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <label for="username">
+                    <input id="username" name="username" type="text" placeholder="Username" required>
+                </label>
+                <div class="error-message">Please enter a username</div>
+            </div>
 
-                <div class="input-group">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" placeholder="Email" required>
-                    <div class="error-message">Please enter a valid email address</div>
-                </div>
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <label for="full_name">
+                    <input id="full_name" name="full_name" type="text" placeholder="Full Name" required>
+                </label>
+                <div class="error-message">Please enter your full name</div>
+            </div>
 
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" required>
-                    <div class="error-message">Password must be at least 6 characters</div>
-                </div>
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <label for="email">
+                    <input id="email" name="email" type="email" placeholder="Email" required>
+                </label>
+                <div class="error-message">Please enter a valid email address</div>
+            </div>
 
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Confirm Password" required>
-                    <div class="error-message">Passwords do not match</div>
-                </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <label for="password1">
+                    <input is="password1" name="password1" type="password" placeholder="Password" required>
+                </label>
+                <div class="error-message">Password must be at least 6 characters</div>
+            </div>
 
-                <button type="submit" class="btn">Sign Up</button>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <label for="password2">
+                    <input id="password2" name="password2" type="password" placeholder="Confirm Password" required>
+                </label>
+                <div class="error-message">Passwords do not match</div>
+            </div>
 
-                <div class="social-login">
-                    <p>Or sign up with</p>
-                    <div class="social-icons">
-                        <div class="social-icon">
-                            <i class="fab fa-google"></i>
-                        </div>
-                        <div class="social-icon">
-                            <i class="fab fa-facebook-f"></i>
-                        </div>
-                        <div class="social-icon">
-                            <i class="fab fa-twitter"></i>
-                        </div>
+            <button type="submit" class="btn">Sign Up</button>
+
+            <div class="social-login">
+                <p>Or sign up with</p>
+                <div class="social-icons">
+                    <div class="social-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="social-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="social-icon">
+                        <i class="fab fa-twitter"></i>
                     </div>
                 </div>
+            </div>
 
-                <div class="toggle-form">
-                    Already have an account?<a href="#" id="showSignIn">Sign In</a>
-                </div>
-            </form>
-        </div>
-
-        <div class="image-side">
-            <h2>Welcome to Our Platform</h2>
-            <p>Join our community and discover amazing features. Start your journey with us today!</p>
-        </div>
+            <div class="toggle-form">
+                Already have an account?<a href="#" id="showSignIn">Sign In</a>
+            </div>
+        </form>
     </div>
 
-    <script>
-        // Form toggle functionality
-        const signInForm = document.querySelector('.sign-in-form');
-        const signUpForm = document.querySelector('.sign-up-form');
-        const showSignUpButton = document.getElementById('showSignUp');
-        const showSignInButton = document.getElementById('showSignIn');
+    <div class="image-side">
+        <h2>Welcome to Our Platform</h2>
+        <p>Join our community and discover amazing features. Start your journey with us today!</p>
+    </div>
+</div>
 
-        showSignUpButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            signInForm.style.transform = 'translateX(-100%)';
-            signInForm.style.opacity = '0';
-            signUpForm.style.transform = 'translateX(0)';
-            signUpForm.style.opacity = '1';
-        });
+<script>
+    // Form toggle functionality
+    const signInForm = document.querySelector('.sign-in-form');
+    const signUpForm = document.querySelector('.sign-up-form');
+    const showSignUpButton = document.getElementById('showSignUp');
+    const showSignInButton = document.getElementById('showSignIn');
 
-        showSignInButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            signUpForm.style.transform = 'translateX(100%)';
-            signUpForm.style.opacity = '0';
-            signInForm.style.transform = 'translateX(0)';
-            signInForm.style.opacity = '1';
-        });
+    showSignUpButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        signInForm.style.transform = 'translateX(-100%)';
+        signInForm.style.opacity = '0';
+        signUpForm.style.transform = 'translateX(0)';
+        signUpForm.style.opacity = '1';
+    });
 
-        // Form validation
-        function validateEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    showSignInButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        signUpForm.style.transform = 'translateX(100%)';
+        signUpForm.style.opacity = '0';
+        signInForm.style.transform = 'translateX(0)';
+        signInForm.style.opacity = '1';
+    });
+
+    // Form validation
+    function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function validatePassword(password) {
+        return password.length >= 6;
+    }
+
+    function showError(input, message) {
+        const errorElement = input.parentElement.querySelector('.error-message');
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+        input.style.borderColor = 'var(--error-color)';
+    }
+
+    function hideError(input) {
+        const errorElement = input.parentElement.querySelector('.error-message');
+        errorElement.style.display = 'none';
+        input.style.borderColor = '#e2e8f0';
+    }
+
+    // Sign In Form Validation
+    document.getElementById('signInForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = e.target.querySelector('input[type="email"]');
+        const password = e.target.querySelector('input[type="password"]');
+        let isValid = true;
+
+        if (!validateEmail(email.value)) {
+            showError(email, 'Please enter a valid email address');
+            isValid = false;
+        } else {
+            hideError(email);
         }
 
-        function validatePassword(password) {
-            return password.length >= 6;
+        if (!validatePassword(password.value)) {
+            showError(password, 'Password must be at least 6 characters');
+            isValid = false;
+        } else {
+            hideError(password);
         }
 
-        function showError(input, message) {
-            const errorElement = input.parentElement.querySelector('.error-message');
-            errorElement.textContent = message;
-            errorElement.style.display = 'block';
-            input.style.borderColor = 'var(--error-color)';
+        if (isValid) {
+            // Handle form submission
+            console.log('Sign In Form Submitted');
+        }
+    });
+
+    // Sign Up Form Validation
+    document.getElementById('signUpForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = e.target.querySelector('input[type="text"]');
+        const email = e.target.querySelector('input[type="email"]');
+        const password = e.target.querySelectorAll('input[type="password"]')[0];
+        const confirmPassword = e.target.querySelectorAll('input[type="password"]')[1];
+        let isValid = true;
+
+        if (name.value.trim() === '') {
+            showError(name, 'Please enter your full name');
+            isValid = false;
+        } else {
+            hideError(name);
         }
 
-        function hideError(input) {
-            const errorElement = input.parentElement.querySelector('.error-message');
-            errorElement.style.display = 'none';
-            input.style.borderColor = '#e2e8f0';
+        if (!validateEmail(email.value)) {
+            showError(email, 'Please enter a valid email address');
+            isValid = false;
+        } else {
+            hideError(email);
         }
 
-        // Sign In Form Validation
-        document.getElementById('signInForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = e.target.querySelector('input[type="email"]');
-            const password = e.target.querySelector('input[type="password"]');
-            let isValid = true;
+        if (!validatePassword(password.value)) {
+            showError(password, 'Password must be at least 6 characters');
+            isValid = false;
+        } else {
+            hideError(password);
+        }
 
-            if (!validateEmail(email.value)) {
-                showError(email, 'Please enter a valid email address');
-                isValid = false;
-            } else {
-                hideError(email);
-            }
+        if (password.value !== confirmPassword.value) {
+            showError(confirmPassword, 'Passwords do not match');
+            isValid = false;
+        } else {
+            hideError(confirmPassword);
+        }
 
-            if (!validatePassword(password.value)) {
-                showError(password, 'Password must be at least 6 characters');
-                isValid = false;
-            } else {
-                hideError(password);
-            }
-
-            if (isValid) {
-                // Handle form submission
-                console.log('Sign In Form Submitted');
-            }
-        });
-
-        // Sign Up Form Validation
-        document.getElementById('signUpForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = e.target.querySelector('input[type="text"]');
-            const email = e.target.querySelector('input[type="email"]');
-            const password = e.target.querySelectorAll('input[type="password"]')[0];
-            const confirmPassword = e.target.querySelectorAll('input[type="password"]')[1];
-            let isValid = true;
-
-            if (name.value.trim() === '') {
-                showError(name, 'Please enter your full name');
-                isValid = false;
-            } else {
-                hideError(name);
-            }
-
-            if (!validateEmail(email.value)) {
-                showError(email, 'Please enter a valid email address');
-                isValid = false;
-            } else {
-                hideError(email);
-            }
-
-            if (!validatePassword(password.value)) {
-                showError(password, 'Password must be at least 6 characters');
-                isValid = false;
-            } else {
-                hideError(password);
-            }
-
-            if (password.value !== confirmPassword.value) {
-                showError(confirmPassword, 'Passwords do not match');
-                isValid = false;
-            } else {
-                hideError(confirmPassword);
-            }
-
-            if (isValid) {
-                // Handle form submission
-                console.log('Sign Up Form Submitted');
-            }
-        });
-    </script>
+        if (isValid) {
+            // Handle form submission
+            console.log('Sign Up Form Submitted');
+        }
+    });
+</script>
 </body>
 </html>
