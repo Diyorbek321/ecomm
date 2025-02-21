@@ -1,6 +1,7 @@
 from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, FormView, ListView, DetailView
@@ -116,16 +117,33 @@ class Register(FormView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('home')
 
-    def form_valid(self, form):
-        user = form.save()
-        if user is not None:
-            login(self.request, user)
-            return super().form_valid(form)
+    def post(self, request, *args, **kwargs):
+        if "sign_up" in request.POST:  # User clicked Sign Up
+            return self.handle_signup(request)
+        elif "sign_in" in request.POST:  # User clicked Sign In
+            return self.handle_signin(request)
+        return redirect("register")  # If no valid form is submitted
 
-    def form_invalid(self, form):
-        print(form.errors)  # Log form errors
-        return super().form_invalid(form)
+    def handle_signup(self, request):
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect(self.success_url)
+        return render(request, self.template_name, {"form": form, "login_form": AuthenticationForm()})
 
+    def handle_signin(self, request):
+        login_form = AuthenticationForm(data=request.POST)
+        if login_form.is_valid():
+            user = login_form.get_user()
+            login(request, user)
+            return redirect(self.success_url)
+        return render(request, self.template_name, {"form": CustomUserCreationForm(), "login_form": login_form})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["login_form"] = AuthenticationForm()  # Add login form to context
+        return context
 
 class Profile(TemplateView):
     template_name = 'profile.html'

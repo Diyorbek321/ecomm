@@ -228,28 +228,36 @@
 <div class="container">
     <div class="forms-container">
         <!-- Sign In Form -->
-        <form method="post" class="form sign-in-form" id="signInForm">
+        <!-- Sign In Form -->
+        <form method="post" class="form sign-in-form" id="signInForm" action="{% url 'register' %}">
             {% csrf_token %}
             <h1 class="form-title">Welcome Back</h1>
 
+            <!-- Add this hidden input -->
+            <input type="hidden" name="sign_in" value="1">
+
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
-                <label>
-                    <input type="email" placeholder="Email" required>
+                <label for="username">
+                    <input id="username" name="username" type="text" placeholder="Email" required>
                 </label>
-                <div class="error-message">Please enter a valid email address</div>
+                {% if form.username.errors %}
+                    <div class="error-message">{{ form.username.errors.0 }}</div>
+                {% endif %}
             </div>
 
             <div class="input-group">
                 <i class="fas fa-lock"></i>
-                <label>
-                    <input type="password" placeholder="Password" required>
+                <label for="password">
+                    <input id="password" name="password" type="password" placeholder="Password" required>
                 </label>
-                <div class="error-message">Password must be at least 6 characters</div>
+                {% if form.password.errors %}
+                    <div class="error-message">{{ form.password.errors.0 }}</div>
+                {% endif %}
             </div>
 
             <div class="forgot-password">
-                <a href="#">Forgot Password?</a>
+                {#        <a href="{% url 'password_reset' %}">Forgot Password?</a>#}
             </div>
 
             <button type="submit" class="btn">Sign In</button>
@@ -270,9 +278,10 @@
             </div>
 
             <div class="toggle-form">
-                Don't have an account?<a href="#" id="showSignUp">Sign Up</a>
+                Don't have an account? <a href="#" id="showSignUp">Sign Up</a>
             </div>
         </form>
+
 
         <!-- Sign Up Form -->
         <form method="post" class="form sign-up-form" id="signUpForm" action="{% url 'register' %}">
@@ -281,65 +290,47 @@
 
             <div class="input-group">
                 <i class="fas fa-user"></i>
-                <label for="username">
-                    <input id="username" name="username" type="text" placeholder="Username" required>
+                <label for="{{ form.full_name.id_for_label }}">
+                    {{ form.full_name }}
                 </label>
-                <div class="error-message">Please enter a username</div>
-            </div>
-
-            <div class="input-group">
-                <i class="fas fa-user"></i>
-                <label for="full_name">
-                    <input id="full_name" name="full_name" type="text" placeholder="Full Name" required>
-                </label>
-                <div class="error-message">Please enter your full name</div>
+                {% if form.full_name.errors %}
+                    <div class="error-message">{{ form.full_name.errors.0 }}</div>
+                {% endif %}
             </div>
 
             <div class="input-group">
                 <i class="fas fa-envelope"></i>
-                <label for="email">
-                    <input id="email" name="email" type="email" placeholder="Email" required>
+                <label for="{{ form.email.id_for_label }}">
+                    {{ form.email }}
                 </label>
-                <div class="error-message">Please enter a valid email address</div>
+                {% if form.email.errors %}
+                    <div class="error-message">{{ form.email.errors.0 }}</div>
+                {% endif %}
             </div>
 
             <div class="input-group">
                 <i class="fas fa-lock"></i>
-                <label for="password1">
-                    <input is="password1" name="password1" type="password" placeholder="Password" required>
+                <label for="{{ form.password1.id_for_label }}">
+                    {{ form.password1 }}
                 </label>
-                <div class="error-message">Password must be at least 6 characters</div>
+                {% if form.password1.errors %}
+                    <div class="error-message">{{ form.password1.errors.0 }}</div>
+                {% endif %}
             </div>
 
             <div class="input-group">
                 <i class="fas fa-lock"></i>
-                <label for="password2">
-                    <input id="password2" name="password2" type="password" placeholder="Confirm Password" required>
+                <label for="{{ form.password2.id_for_label }}">
+                    {{ form.password2 }}
                 </label>
-                <div class="error-message">Passwords do not match</div>
+                {% if form.password2.errors %}
+                    <div class="error-message">{{ form.password2.errors.0 }}</div>
+                {% endif %}
             </div>
 
             <button type="submit" class="btn">Sign Up</button>
-
-            <div class="social-login">
-                <p>Or sign up with</p>
-                <div class="social-icons">
-                    <div class="social-icon">
-                        <i class="fab fa-google"></i>
-                    </div>
-                    <div class="social-icon">
-                        <i class="fab fa-facebook-f"></i>
-                    </div>
-                    <div class="social-icon">
-                        <i class="fab fa-twitter"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="toggle-form">
-                Already have an account?<a href="#" id="showSignIn">Sign In</a>
-            </div>
         </form>
+
     </div>
 
     <div class="image-side">
