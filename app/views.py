@@ -13,6 +13,14 @@ from app.forms import CustomUserCreationForm, ContactForm
 import uuid
 
 
+class About(TemplateView):
+    template_name = 'about.html'
+
+class Help(TemplateView):
+    template_name = 'help.html'
+
+class Faq(TemplateView):
+    template_name = 'faq.html'
 # Create your views here.
 class Home(ListView):
     model = Category

@@ -1,10 +1,222 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'parts/base.html' %}
+{% load static %}
+{% block content %}
+    <body>
+    {% include 'parts/topbar.html' %}
 
-</body>
-</html>
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="{% url 'home' %}">Home</a>
+                    <span class="breadcrumb-item active">About Us</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Hero Section Start -->
+    <section class="hero-section position-relative text-center text-white"
+             style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static 'img/about-hero.jpg' %}'); background-size: cover; background-position: center; height: 60vh;">
+        <div class="d-flex flex-column justify-content-center align-items-center h-100">
+            <h1 class="display-3 font-weight-bold animate__animated animate__fadeInDown">About Us</h1>
+            <p class="lead mt-3 animate__animated animate__fadeInUp">Discover our story, mission, and the team behind
+                your favorite shopping experience.</p>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Mission Section Start -->
+    <section class="mission-section container-fluid py-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-6 mb-4">
+                <h2 class="section-title position-relative text-uppercase mb-4"><span class="bg-secondary pr-3">Our Mission</span>
+                </h2>
+                <p class="lead">We aim to bring you the best in fashion with quality, style, and sustainability at the
+                    heart of everything we do. Our mission is to make shopping effortless, enjoyable, and accessible to
+                    everyone.</p>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <img src="{% static 'img/mission-image.jpg' %}" alt="Mission" class="img-fluid rounded shadow"
+                     style="max-height: 400px; width: 100%; object-fit: cover;">
+            </div>
+        </div>
+    </section>
+    <!-- Mission Section End -->
+
+    <!-- Team Section Start -->
+    <section class="team-section container-fluid py-5 bg-light">
+        <div class="row px-xl-5 text-center">
+            <div class="col-12">
+                <h2 class="section-title position-relative text-uppercase mb-4"><span class="bg-secondary pr-3">Meet Our Team</span>
+                </h2>
+                <p class="lead mb-5">A passionate group dedicated to delivering excellence.</p>
+            </div>
+        </div>
+        <div class="row px-xl-5 justify-content-center">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="team-card bg-white shadow-sm rounded overflow-hidden">
+                    <img src="{% static 'img/team-1.jpg' %}" alt="Team Member" class="img-fluid w-100">
+                    <div class="p-4">
+                        <h5 class="font-weight-bold">Jane Doe</h5>
+                        <p class="text-muted">Founder & CEO</p>
+                        <p>Leading with vision and innovation.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="team-card bg-white shadow-sm rounded overflow-hidden">
+                    <img src="{% static 'img/team-2.jpg' %}" alt="Team Member" class="img-fluid w-100">
+                    <div class="p-4">
+                        <h5 class="font-weight-bold">John Smith</h5>
+                        <p class="text-muted">Creative Director</p>
+                        <p>Designing trends that inspire.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="team-card bg-white shadow-sm rounded overflow-hidden">
+                    <img src="{% static 'img/team-3.jpg' %}" alt="Team Member" class="img-fluid w-100">
+                    <div class="p-4">
+                        <h5 class="font-weight-bold">Emily Brown</h5>
+                        <p class="text-muted">Marketing Lead</p>
+                        <p>Connecting with our community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Team Section End -->
+
+    <!-- Values Section Start -->
+    <section class="values-section container-fluid py-5">
+        <div class="row px-xl-5 text-center">
+            <div class="col-12">
+                <h2 class="section-title position-relative text-uppercase mb-4"><span class="bg-secondary pr-3">Our Values</span>
+                </h2>
+            </div>
+        </div>
+        <div class="row px-xl-5">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="value-card bg-light p-4 rounded shadow-sm">
+                    <i class="fa fa-leaf fa-3x text-primary mb-3"></i>
+                    <h4 class="font-weight-bold">Sustainability</h4>
+                    <p>Committed to eco-friendly practices and products.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="value-card bg-light p-4 rounded shadow-sm">
+                    <i class="fa fa-star fa-3x text-primary mb-3"></i>
+                    <h4 class="font-weight-bold">Quality</h4>
+                    <p>Delivering excellence in every item we offer.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="value-card bg-light p-4 rounded shadow-sm">
+                    <i class="fa fa-users fa-3x text-primary mb-3"></i>
+                    <h4 class="font-weight-bold">Community</h4>
+                    <p>Building a connection with our customers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Values Section End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
+                <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed
+                    dolor...</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <!-- Footer links unchanged -->
+            </div>
+        </div>
+        <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
+            <!-- Footer bottom unchanged -->
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- CSS -->
+    <style>
+        /* Hero Section */
+        .hero-section {
+            background-attachment: fixed;
+        }
+
+        .hero-section h1 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Team Cards */
+        .team-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .team-card img {
+            height: 250px;
+            object-fit: cover;
+        }
+
+        /* Value Cards */
+        .value-card {
+            transition: background 0.3s ease;
+        }
+
+        .value-card:hover {
+            background: #f8f9fa;
+        }
+
+        .value-card i {
+            color: #007bff;
+        }
+
+        /* General */
+        .section-title span {
+            background: #007bff;
+            color: white;
+        }
+    </style>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Smooth scroll for back-to-top
+            $('.back-to-top').click(function (e) {
+                e.preventDefault();
+                $('html, body').animate({scrollTop: 0}, 800);
+            });
+
+            // Fade-in animation on scroll
+            $(window).scroll(function () {
+                $('.team-card, .value-card').each(function () {
+                    var top = $(this).offset().top;
+                    var bottom = top + $(this).outerHeight();
+                    var scrollTop = $(window).scrollTop();
+                    var windowHeight = $(window).height();
+                    if (scrollTop + windowHeight > top && scrollTop < bottom) {
+                        $(this).addClass('animate__animated animate__fadeInUp');
+                    }
+                });
+            });
+        });
+    </script>
+    </body>
+{% endblock %}

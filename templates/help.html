@@ -1,0 +1,254 @@
+{% extends 'parts/base.html' %}
+{% load static %}
+{% block content %}
+<body>
+    {% include 'parts/topbar.html' %}
+
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="{% url 'home' %}">Home</a>
+                    <span class="breadcrumb-item active">Help</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Hero Section Start -->
+    <section class="hero-section position-relative text-center text-white" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static 'img/help-hero.jpg' %}'); background-size: cover; background-position: center; height: 60vh;">
+        <div class="d-flex flex-column justify-content-center align-items-center h-100">
+            <h1 class="display-3 font-weight-bold animate__animated animate__fadeInDown">Help & Support</h1>
+            <p class="lead mt-3 animate__animated animate__fadeInUp">We’re here to assist you with all your shopping needs.</p>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- FAQ Section Start -->
+    <section class="faq-section container-fluid py-5">
+        <div class="row px-xl-5">
+            <div class="col-12 text-center">
+                <h2 class="section-title position-relative text-uppercase mb-4"><span class="bg-secondary pr-3">Frequently Asked Questions</span></h2>
+                <p class="lead mb-5">Find answers to common questions below.</p>
+            </div>
+        </div>
+        <div class="row px-xl-5">
+            <div class="col-lg-6 mb-4">
+                <div class="accordion" id="faqAccordionLeft">
+                    <div class="card border-0 shadow-sm mb-3">
+                        <div class="card-header" id="faqHeading1">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link text-dark text-decoration-none w-100 text-left" type="button" data-toggle="collapse" data-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                                    How do I track my order?
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="faqCollapse1" class="collapse show" aria-labelledby="faqHeading1" data-parent="#faqAccordionLeft">
+                            <div class="card-body">
+                                Once your order ships, you’ll receive a tracking number via email. Use it on our tracking page or contact support for assistance.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-0 shadow-sm mb-3">
+                        <div class="card-header" id="faqHeading2">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link text-dark text-decoration-none w-100 text-left collapsed" type="button" data-toggle="collapse" data-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                                    What’s your return policy?
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="faqCollapse2" class="collapse" aria-labelledby="faqHeading2" data-parent="#faqAccordionLeft">
+                            <div class="card-body">
+                                We offer a 14-day return policy. Items must be unused and in original packaging. Visit our Returns page for details.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="accordion" id="faqAccordionRight">
+                    <div class="card border-0 shadow-sm mb-3">
+                        <div class="card-header" id="faqHeading3">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link text-dark text-decoration-none w-100 text-left" type="button" data-toggle="collapse" data-target="#faqCollapse3" aria-expanded="true" aria-controls="faqCollapse3">
+                                    How can I contact support?
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="faqCollapse3" class="collapse show" aria-labelledby="faqHeading3" data-parent="#faqAccordionRight">
+                            <div class="card-body">
+                                Reach us via email at info@example.com, phone at +012 345 67890, or use the form below. We’re available 24/7!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-0 shadow-sm mb-3">
+                        <div class="card-header" id="faqHeading4">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link text-dark text-decoration-none w-100 text-left collapsed" type="button" data-toggle="collapse" data-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                                    Do you ship internationally?
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="faqCollapse4" class="collapse" aria-labelledby="faqHeading4" data-parent="#faqAccordionRight">
+                            <div class="card-body">
+                                Yes, we ship to over 50 countries! Check shipping rates and times at checkout or contact us for specifics.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FAQ Section End -->
+
+    <!-- Contact Section Start -->
+    <section class="contact-section container-fluid py-5 bg-light">
+        <div class="row px-xl-5">
+            <div class="col-lg-6 mb-4">
+                <h2 class="section-title position-relative text-uppercase mb-4"><span class="bg-secondary pr-3">Get in Touch</span></h2>
+                <p class="lead mb-4">Have a question? We’re here to help!</p>
+                <form id="contactForm" method="post" action="{% url 'contact' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary px-4">Send Message</button>
+                </form>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="support-info bg-white p-4 rounded shadow-sm">
+                    <h4 class="font-weight-bold mb-4">Support Options</h4>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fa fa-phone-alt text-primary mr-3 fa-2x"></i>
+                        <div>
+                            <h6 class="font-weight-bold">Phone Support</h6>
+                            <p>+012 345 67890 (24/7)</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fa fa-envelope text-primary mr-3 fa-2x"></i>
+                        <div>
+                            <h6 class="font-weight-bold">Email Us</h6>
+                            <p>info@example.com</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fa fa-comment-dots text-primary mr-3 fa-2x"></i>
+                        <div>
+                            <h6 class="font-weight-bold">Live Chat</h6>
+                            <p>Click the chat icon below to start!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
+                <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor...</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <!-- Footer links unchanged -->
+            </div>
+        </div>
+        <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
+            <!-- Footer bottom unchanged -->
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- CSS -->
+    <style>
+        /* Hero Section */
+        .hero-section {
+            background-attachment: fixed;
+        }
+        .hero-section h1 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* FAQ Accordion */
+        .faq-section .card {
+            transition: box-shadow 0.3s ease;
+        }
+        .faq-section .card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .faq-section .btn-link {
+            font-weight: 600;
+        }
+
+        /* Contact Form & Support Info */
+        .support-info {
+            border-left: 4px solid #007bff;
+        }
+        .support-info i {
+            color: #007bff;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        /* General */
+        .section-title span {
+            background: #007bff;
+            color: white;
+        }
+    </style>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Smooth scroll for back-to-top
+            $('.back-to-top').click(function (e) {
+                e.preventDefault();
+                $('html, body').animate({ scrollTop: 0 }, 800);
+            });
+
+            // Fade-in animation on scroll
+            $(window).scroll(function () {
+                $('.card, .support-info').each(function () {
+                    var top = $(this).offset().top;
+                    var bottom = top + $(this).outerHeight();
+                    var scrollTop = $(window).scrollTop();
+                    var windowHeight = $(window).height();
+                    if (scrollTop + windowHeight > top && scrollTop < bottom) {
+                        $(this).addClass('animate__animated animate__fadeInUp');
+                    }
+                });
+            });
+
+            // Form submission feedback (optional)
+            $('#contactForm').submit(function (e) {
+                e.preventDefault();
+                alert('Thank you! Your message has been sent.');
+                this.reset();
+            });
+        });
+    </script>
+</body>
+{% endblock %}
