@@ -1,6 +1,10 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from django.forms import ModelForm
+
+from app.models import Contact
+
 
 class CustomUserCreationForm(UserCreationForm):
     full_name = forms.CharField(max_length=100, required=True)
@@ -28,3 +32,34 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+from django import forms
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['name', 'email', 'subject', 'message']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Your Name',
+                'id': 'name'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Your Email',
+                'id': 'email'
+            }),
+            'subject': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Subject',
+                'id': 'subject'
+            }),
+            'message': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Message',
+                'rows': '8',
+                'id': 'message'
+            })
+        }
