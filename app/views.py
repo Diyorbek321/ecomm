@@ -298,3 +298,4 @@ class Register(FormView):
 
 class Profile(TemplateView):
     template_name = 'profile.html'
+

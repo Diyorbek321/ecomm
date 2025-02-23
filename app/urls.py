@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('home/', Home.as_view(), name='home'),
+    path('', Home.as_view(), name='home'),
     path('contact/', Contact.as_view(), name='contact'),
     path('cart/', Cart.as_view(), name='cart'),
     path('checkout/', Checkout.as_view(), name='checkout'),
@@ -18,7 +18,8 @@ urlpatterns = [
     path('remove-from-cart/', RemoveFromCartView.as_view(), name='remove_from_cart'),
     path('about/',About.as_view(),name='about'),
     path('help/',Help.as_view(),name='help'),
-    path('faq/',Faq.as_view(),name='faq')
+    path('faq/',Faq.as_view(),name='faq'),
+
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

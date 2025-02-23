@@ -18,8 +18,6 @@ class CustomUserCreationForm(UserCreationForm):
         user = super().save(commit=False)
         user.username = self.cleaned_data['email']  # Use email as username
         user.email = self.cleaned_data['email']
-
-        # Split full name into first_name and last_name
         full_name = self.cleaned_data['full_name'].strip()
         if ' ' in full_name:
             first_name, last_name = full_name.rsplit(' ', 1)
@@ -28,7 +26,6 @@ class CustomUserCreationForm(UserCreationForm):
         else:
             user.first_name = full_name
             user.last_name = ''
-
         if commit:
             user.save()
         return user
